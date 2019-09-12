@@ -5,8 +5,7 @@ import { Validator, compileSchema } from "@jddf/jddf";
 import fs from "fs";
 import { MongoClient } from "mongodb";
 
-// Event and EventOrderCompleted are code-generated from event.jddf.yaml -- this
-// import won't compile until you run `yarn jddf-codegen`.
+// Event and EventOrderCompleted are code-generated from event.jddf.yaml.
 //
 // Go ahead and take a look at its contents if you wish! It's probably the exact
 // same code you would have written by hand.
