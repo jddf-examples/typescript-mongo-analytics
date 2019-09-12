@@ -89,9 +89,9 @@ Then there's a good chance you'll get some error like this in production:
 TypeError: Cannot read property 'length' of undefined
 ```
 
-Avoiding problems like this is a big part of TypeScript's value-add. But
-TypeScript doesn't have a run-time type checker, so it's all to easy to get into
-this situation.
+Avoiding problems like this is a big part of why TypeScript is so great. But
+TypeScript doesn't have a run-time type checker, so it's all too easy to get
+into this situation.
 
 ### How JDDF solves this
 
@@ -136,14 +136,14 @@ interface User {
 ```
 
 The validation looks a lot like the code from above, but this time it's
-foolproof. Set up a `Makefile` or watcher script to run `jddf-codegen`, and you
-can just do:
+foolproof:
 
 ```ts
 import schema from "user.jddf.json";
 import { Validator, compileSchema } from "@jddf/jddf";
 
-// Now, our types are generated from the schema.
+// Now, our types are generated from the schema. The schema is your single
+// source of truth.
 import { User } from "./models/user";
 
 const schema = compileSchema(schema);
@@ -153,11 +153,11 @@ if (errors) {
   res.status(400).json(errors);
 }
 
-// We got past the validation step. This type-case is safe:
+// We got past the validation step. This type-cast is safe:
 const user = req.body as User;
 ```
 
-It's the same idea as before, but with all the error-prone bits automated!
+It's the same idea as before, but with all the error-prone steps automated!
 
 ### How JDDF helps you scale
 
@@ -196,9 +196,9 @@ your public contract. So you have two options:
 
 1. Strip validation errors, or otherwise obfuscate them so consumers can't rely
    on them. This is bad user experience.
-2. If you ever move on to another validation system, such as if you port your
-   service from JavaScript to some other language, re-implement `joi`'s error
-   format.
+2. Just return `joi`'s errors. If you ever move on to another validation system,
+   such as if you port your service from JavaScript to some other language,
+   you'll have to re-implement `joi`'s error format or break clients.
 
 In summary, the `joi`/`ow` approach works just fine at first, and you should
 consider it a legitimate option. But down the road, it might leave you stuck
